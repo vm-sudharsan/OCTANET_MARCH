@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f2f2f2;
+    }
+
+    .todo-container {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #a5efbc;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .task-form {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 10px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background-color: #4caf50;
+      color: #fff;
+      padding: 10px;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .task {
+      border: 1px solid #ddd;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .task span {
+      flex-grow: 1;
+      margin-right: 10px;
+    }
+
+    .high-priority {
+      background-color: #ff9999;
+    }
+
+    .medium-priority {
+      background-color: #ffcc66;
+    }
+
+    .low-priority {
+      background-color: #99ff99;
+    }
+  </style>
+  <title = "bold"> ToDo List</title>
+</head>
+<body>
+
+  <div class="todo-container">
+    <h1 style="font-size: larger;"> ToDo List</h1>
+    <div class="task-form">
+      <label for="task">Task:</label>
+      <input type="text" id="task" placeholder="Enter your task">
+      <label for="deadline">Deadline:</label>
+      <input type="date" id="deadline">
+      <label for="priority">Priority:</label>
+      <select id="priority">
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+      </select>
+      <label for="label">Label:</label>
+      <input type="text" id="label" placeholder="Enter labels">
+      <button onclick="addTask()">Add Task</button>
+    </div>
+
+    <div class="task-list" id="taskList">
+    </div>
+  </div>
+
+  <script>
+    function addTask() {
+      const taskInput = document.getElementById('task');
+      const deadlineInput = document.getElementById('deadline');
+      const priorityInput = document.getElementById('priority');
+      const labelInput = document.getElementById('label');
+      const taskList = document.getElementById('taskList');
+
+      if (taskInput.value !== "") {
+        const taskDiv = document.createElement('div');
+        taskDiv.classList.add('task');
+
+        const taskInfo = document.createElement('span');
+        taskInfo.innerHTML = `<strong>${taskInput.value}</strong> | Deadline: ${deadlineInput.value} | Priority: ${priorityInput.value} | Labels: ${labelInput.value}`;
+        taskDiv.appendChild(taskInfo);
+
+        const deleteBtn = document.createElement('button');
+        deleteBtn.innerHTML = 'Delete';
+        deleteBtn.onclick = function () {
+          taskDiv.remove();
+        };
+        taskDiv.appendChild(deleteBtn);
+
+        taskList.appendChild(taskDiv);
+
+        taskInput.value = "";
+        deadlineInput.value = "";
+        priorityInput.value = "high";
+        labelInput.value = "";
+      }
+      
+      else {
+        alert("Please enter a task.");
+      }
+    }
+  </script>
+</body>
+</html>
